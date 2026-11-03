@@ -30,15 +30,6 @@ Thiết kế và chế tạo một tủ thuốc thông minh giá rẻ, có thể
 - Cân khối lượng thuốc trên đĩa cân (Loadcell + HX711) để xác định đã lấy thuốc hay chưa.
 - Chụp chuỗi ảnh lúc người bệnh nhận thuốc, lưu lên đám mây làm bằng chứng.
 - Ứng dụng Android: xem trạng thái "Đã uống / Chưa uống / Người lạ", khối lượng, giờ hẹn, ảnh, đăng ký khuôn mặt người bệnh, cấu hình Wi-Fi.
-
-**Yêu cầu phi chức năng**
-
-- Chi phí thấp, linh kiện phổ biến, mạch in tự gia công được (PCB một lớp, ăn mòn phíp đồng).
-- Vẫn đúng giờ khi mất mạng hoặc mất điện đột ngột (RTC DS3231 có pin dự phòng, NVS lưu cấu hình).
-- Vận hành ổn định (không treo, không brownout) khi camera, Wi-Fi và động cơ chạy cùng lúc.
-- Dễ dùng cho người cao tuổi (OLED tương phản cao, chỉ cần đứng trước camera).
-- Bảo mật dữ liệu khuôn mặt và ảnh (Firebase Security Rules, chỉ tài khoản người thân được xem).
-
 ---
 
 ## 2. Sơ đồ khối dự kiến
