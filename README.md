@@ -258,7 +258,6 @@ sequenceDiagram
 - **Giai đoạn 2 – thuốc đã lấy:** khối lượng giảm về gần 0 (trong sai số) và ổn định ⇒ `TAKEN`.
 - **Tham khảo từ khóa luận [1]:** với quả cân 0,5 – 5,0 g, hồi quy `y = 0,04864 + 0,99045·x`, R² = 0,99982, sai số lớn nhất ~0,1 g ở dải dưới 1 g. Sẽ đo lại với bộ cân của đề tài.
 
-![Đồ thị hiệu chuẩn loadcell + HX711 (KLTN [1])](docs/images/hieu_chuan_loadcell_KLTN.png)
 
 ### 6.4. Nạp thuốc và đặt lại khay
 
