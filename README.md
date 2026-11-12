@@ -19,12 +19,11 @@
 5. [Phần cứng](#5-phần-cứng)
 6. [Nguyên lý hoạt động](#6-nguyên-lý-hoạt-động)
 7. [Giao tiếp MQTT](#7-giao-tiếp-mqtt)
-8. [Dashboard Node-RED và Telegram Bot](#8-dashboard-node-red-và-telegram-bot)
+8. [Dashboard Node-RED](#8-dashboard-node-red)
 9. [Đóng góp và tính ứng dụng](#9-đóng-góp-và-tính-ứng-dụng)
 10. [Công cụ và môi trường phát triển](#10-công-cụ-và-môi-trường-phát-triển)
 11. [Kế hoạch thực hiện](#11-kế-hoạch-thực-hiện)
-12. [Hình ảnh linh kiện và mô hình](#12-hình-ảnh-linh-kiện-và-mô-hình)
-13. [Tài liệu tham khảo](#13-tài-liệu-tham-khảo)
+12. [Tài liệu tham khảo](#13-tài-liệu-tham-khảo)
 
 ---
 
@@ -324,7 +323,7 @@ Ví dụ bản tin:
 
 **Cấu hình Wi-Fi/MQTT lần đầu:** ESP32 chưa có Wi-Fi trong NVS sẽ phát Access Point (captive portal `192.168.4.1`); người dùng nhập SSID, mật khẩu, địa chỉ broker, user/password MQTT (thư viện `WiFiManager`) [12]; ESP32 lưu NVS rồi tự kết nối MQTT.
 
-## 8. Dashboard Node-RED và Telegram Bot
+## 8. Dashboard Node-RED 
 
 Dùng `@flowfuse/node-red-dashboard` (Dashboard 2.0); bản `node-red-dashboard` cũ đã bị ngừng phát triển từ tháng 6/2024 [10].
 
@@ -351,22 +350,6 @@ flowchart LR
 | Thiết bị | Đèn online/offline, RSSI |
 
 **Mở rộng:** thống kê tỉ lệ uống đúng giờ theo người và theo tuần; xác thực danh tính bằng RFID/vân tay; nhắc lại lần hai nếu thuốc vẫn chưa được lấy.
-
-### Telegram Bot
-
-Dùng node `node-red-contrib-telegrambot` [11]; tạo bot qua BotFather, khai báo `chatId` của người thân (cho phép nhiều người).
-
-| Sự kiện | Nội dung gửi |
-|---|---|
-| `TAKEN` | "✅ Ba đã uống thuốc lúc 08:01" |
-| `MISSED` (`no_press`) | "❌ Ba chưa bấm nút nhận thuốc buổi 08:00 (quá 5 phút)" |
-| `MISSED` (`not_picked`) | "⚠️ Thuốc của Ba đã rơi nhưng chưa được lấy (quá 5 phút)" |
-| `DISPENSE_FAIL` | "🧰 Không nhả được thuốc của Ba – kiểm tra khay" |
-| `DENIED` (từ lần thứ 3 trong 10 phút) | "⚠️ Có người bấm nút của Mẹ ngoài giờ nhiều lần" |
-| `TRAY_LOW` | "📦 Khay của Mẹ chỉ còn 2 liều thuốc" |
-| LWT offline | "🔌 Tủ thuốc mất kết nối" |
-| Lệnh `/status`, `/lich` | Trạng thái hôm nay; lịch hiện tại |
-
 ## 9. Đóng góp và tính ứng dụng
 
 - Tích hợp nhắc giờ, chia thuốc và theo dõi việc lấy thuốc trong một thiết bị giá rẻ chỉ dùng một ESP32, đáp ứng nhu cầu chăm sóc người cao tuổi từ xa.
@@ -398,26 +381,7 @@ Dùng node `node-red-contrib-telegrambot` [11]; tạo bot qua BotFather, khai b�
 | 4 | Node-RED: dashboard trạng thái, hai khay, khối lượng, lịch, điều khiển, nhật ký; Telegram Bot |
 | 5 | Thiết kế CAD và in 3D vỏ tủ, hai khay 8 ngăn, máng dẫn, đĩa cân; lắp ráp, chỉnh độ dốc máng và kích thước ngăn |
 | 6 | Kiểm thử toàn hệ thống (hai người, trùng giờ, bấm ngoài giờ, kẹt thuốc, mất mạng, mất điện), hiệu chỉnh, quay video trình diễn |
-
-## 12. Hình ảnh linh kiện và mô hình
-
-| | |
-|---|---|
-| Hình 1. ESP32-WROOM-32 | Hình 2. Loadcell 1 kg và module HX711 |
-| Hình 3. Module RTC DS3231 | Hình 4. Động cơ bước 28BYJ-48 và mạch ULN2003 |
-| Hình 5. Còi thụ động và nút nhấn lớn (đỏ, xanh dương) | |
-
-**Hình 6. Mặt cắt dọc mô hình dự kiến** (khoang khay thuốc ở trên, khoang cân và điều khiển ở dưới; cần vẽ lại cho thiết kế 2 khay, 2 động cơ)
-
-![Mặt cắt mô hình 1 khay](docs/images/mo_hinh_khay_1_dong_co.svg)
-
-**Hình 7. Khay tròn 8 ngăn quay bằng động cơ bước** (tham khảo từ [1]; đề tài sử dụng hai khay độc lập, mỗi khay có 1 ngăn rỗng và 7 ngăn chứa thuốc)
-
-![Khay nhiều ngăn và thân tủ in 3D](docs/images/mo_hinh_3d_khay_va_than_tu_KLTN.png)
-
-> **Lưu ý khi thiết kế CAD:** (1) góc nghiêng và độ trơn của máng để viên thuốc nhỏ không kẹt; (2) kích thước ngăn và khoảng hở đáy khay – lỗ rơi để thuốc rơi hết khi tới lỗ; (3) máng không chạm vào đĩa cân, nếu không loadcell đo sai; (4) ngăn nghỉ phải che kín lỗ rơi khi khay ở vị trí chờ.
-
-## 13. Tài liệu tham khảo
+## 12. Tài liệu tham khảo
 
 1. Phạm Lê Quốc Thái, *Nghiên cứu chế tạo tủ thuốc thông minh theo dõi và nhắc nhở hành vi dùng thuốc của người bệnh*, Khóa luận tốt nghiệp, Khoa Vật lý, ĐH Khoa học Tự nhiên – ĐHQGHN, 2026. *(nguồn tham khảo chính cho phần cứng, nguồn, cơ khí, thuật toán cân)*
 2. Avia Semiconductor, *HX711 – 24-Bit ADC for Weigh Scales*. <https://cdn.sparkfun.com/datasheets/Sensors/ForceFlex/hx711_english.pdf>
